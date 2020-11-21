@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -14,14 +14,11 @@ import Toast from 'react-native-simple-toast';
 /* import Curve from '../../assets/images/Curve.svg';
 import Logo from '../../assets/images/S Logo.svg';
 import Lock from '../../assets/images/lock.svg';
- */import {Form, Item, Label, Button} from 'native-base';
-import Icon from 'react-native-ionicons';
-import {SafeAreaView} from 'react-native-safe-area-context';
+ */import { Form, Item, Label, Button } from 'native-base';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-//import Toast from 'react-native-toast-message';
-//const image = require('../../assets/images/Curve.png');
 
-export default function ForgotPassword({navigation}) {
+export default function ForgotPassword({ navigation }) {
   const [count, setCount] = useState(0);
   const onPress = () => {
     setCount((prevCount) => prevCount + 1);
@@ -123,7 +120,7 @@ export default function ForgotPassword({navigation}) {
  */}    </SafeAreaView>
   );
 }
-const {height, width} = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   imageContainer: {
     width: '100%',

@@ -1,17 +1,20 @@
-import {TOOGLE_USERID} from '../actions/loginActions';
+import { TOOGLE_USERID } from '../actions/loginActions';
 
 const initialState = {
-  userId: null,
-  userName:null,
+  email: null,
 };
 
 const loginReducer = (state = initialState, action) => {
+  console.log('loginReducer', action.email)
   switch (action.type) {
     case TOOGLE_USERID:
-      return {...state, userId: action.userId,userName:action.userName};
+      return {
+        ...state, email: action.email,
+      };
     default:
       return state;
   }
 };
+
 
 export default loginReducer;

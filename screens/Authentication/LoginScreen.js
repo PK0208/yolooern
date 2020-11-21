@@ -1,4 +1,4 @@
-import React, {useState, Component} from 'react';
+import React, { useState, Component } from 'react';
 import {
   Text,
   View,
@@ -9,14 +9,14 @@ import {
   Platform,
   Dimensions,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useDispatch} from 'react-redux';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useDispatch } from 'react-redux';
 //import { COLORS } from "util/Colors";
 //import COLORS from '../../utils/Colors';
 //import Fonts from '../../utils/Fonts';
 //import { FONTS } from "util/Fonts";
-import {Form, Item, Label, Button} from 'native-base';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import { Form, Item, Label, Button } from 'native-base';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 //import { Network } from "network";
 //import { inject } from "mobx-react";
 //import { STORES } from "store/Type";
@@ -24,9 +24,10 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 //import { ASYNC } from "storage/Type";
 import Icon from 'react-native-vector-icons/Entypo';
 import axios from 'axios';
-import {color} from 'react-native-reanimated';
+//import { color } from 'react-native-reanimated';
+import { toogleUser } from '../../store/actions/loginActions';
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
   const [count, setCount] = useState(0);
   const onPress = () => {
@@ -35,35 +36,13 @@ export default function LoginScreen({navigation}) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const {height, width} = Dimensions.get('window');
+  const { height, width } = Dimensions.get('window');
 
-  /* checkLoginData = () => {
-    console.log('------LOGIN API -------')
-    let email = "abc@gmail.com";
-    let password = "1234";
-    let res = axios
-      .get(
-        `https://ixiono.com/yolooe/api/loginget/?email=${email}&password=${password}`
-      )
-      .then((response) => {
-        console.log("response", response.data);
-        console.log("response_message", response.data["message"]);
-        console.log("response_status", response.data["status"]);
-        if (response.data["status"] === "true") {
-          console.log("Login Success");
-        } else {
-          console.log("not Success");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }; */
 
   login = async () => {
     console.log('------LOGIN API POST-------');
     let fd = new FormData();
-    fd.append('email', 'abc@gmail.com');
+    fd.append('email', 'abcd@gmail.com');
     fd.append('password', '1234');
     let data = {
       email: 'abc@gmail.com',
@@ -72,7 +51,19 @@ export default function LoginScreen({navigation}) {
     const res = await axios
       .post('https://ixiono.com/yolooe/api/Login', fd)
       .then((response) => {
-        console.log(response.data);
+        console.log('Response_Data', response.data);
+        console.log('Response_Data', response.data.data);
+        console.log('Response_Data_email', response.data.data[0].email);
+        console.log('Response_Data_Status', response.data.status);
+        if (response.data.status === 'true') {
+          console.log('navigate to home screen');
+          console.log('navigate to home screen', response.data.data[0].email);
+          dispatch(
+            toogleUser(
+              response.data.data[0].email,
+            ),
+          );
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -112,14 +103,14 @@ export default function LoginScreen({navigation}) {
                   style={styles.inputs}
                   placeholder="User Name"
                   underlineColorAndroid="transparent"
-                  onChangeText={(value) => this.setState({email: value})}
+                  onChangeText={(value) => this.setState({ email: value })}
                 />
                 <View style={styles.iconInside}>
                   <Icon
                     name={'user'}
                     color="#fff"
                     size={25}
-                    style={{margin: 5}}
+                    style={{ margin: 5 }}
                   />
                 </View>
               </View>
@@ -128,35 +119,37 @@ export default function LoginScreen({navigation}) {
                   style={styles.inputs}
                   placeholder="Password"
                   underlineColorAndroid="transparent"
-                  onChangeText={(value) => this.setState({password: value})}
+                  onChangeText={(value) => this.setState({ password: value })}
                 />
                 <View style={styles.iconInside}>
                   <Icon
                     name={'lock'}
                     color="#fff"
                     size={20}
-                    style={{margin: 5}}
+                    style={{ margin: 5 }}
                   />
                 </View>
               </View>
             </Form>
-
-            <View style={styles.buttonContainer}>
-              {/* <Button full style={{backgroundColor: '#134C94'}} onPress={login}>
-                <Text style={styles.buttonText}>Sign In</Text>
-              </Button> */}
-
-              <TouchableOpacity
-                style={{
-                  backgroundColor: '#2C3790',
-                  height: 40,
-                  borderRadius: 5,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-                onPress={login}>
-                <Text style={styles.buttonText}>Sign In</Text>
-              </TouchableOpacity>
+            <View style={{ flexDirection: 'column' }}>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: '#2C3790',
+                    height: 40,
+                    borderRadius: 5,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                  onPress={login}>
+                  <Text style={styles.buttonText}>Sign In</Text>
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.title}>
+                <Text>Don't have an account ?
+              <Text styles={{ color: '#2C3790' }} numberOfLines={1}>Click here</Text>
+                </Text>
+              </Text>
             </View>
           </View>
         </View>
