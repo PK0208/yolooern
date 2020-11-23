@@ -22,7 +22,7 @@ export default function Appbar(props) {
     </View>
   );
 }
-const { height, width } = Dimensions.get('window');
+const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   appBarContainer: {
     flexDirection: 'row',
@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: 'white',
-    fontSize: 25
+    fontSize: 25,
   },
 });

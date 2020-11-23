@@ -11,13 +11,10 @@ import Appbar from '../Components/Appbar';
 import ImageSlider from '../Components/ImageSlider';
 import Products from '../Components/ProductsComponent';
 import axios from 'axios';
-import { Card, CardItem, Body, Text } from 'native-base';
+import {Card, CardItem, Body, Text} from 'native-base';
 import home_img from '../assests/home_img.png';
 
-
-const { height, width } = Dimensions.get('window');
-
-
+const {height, width} = Dimensions.get('window');
 
 export default class ProductsComponent extends React.Component {
   state = {
@@ -28,40 +25,49 @@ export default class ProductsComponent extends React.Component {
     clickServices: Boolean,
     clickTimeline: Boolean,
     clickVault: Boolean,
-    colorActive: "#2C3790",
+    colorActive: '#2C3790',
     colorInactive: '#FFFFFF',
   };
 
-
-
-
-
-
   componentDidMount() {
-    console.log('--------- HomeScreen -------------------------')
+    console.log('--------- HomeScreen -------------------------');
   }
 
   onClickFriends = () => {
-    this.setState({ clickFriends: false })
+    this.setState({clickFriends: false});
     console.log('on Click Friends');
-    //console.log('on Click Friends color Before', this.state.color);
-    this.setState({ clickFriends: true })
-    //this.setState({ colorActive: "#2C3790" })
-    //console.log('on Click Friends color After', this.state.color);
-  }
+    this.setState({clickFriends: true});
+  };
 
   onClickMemories = () => {
-    this.setState({ clickMemories: false })
+    this.setState({clickMemories: false});
     console.log('on Click memories');
-    this.setState({ clickMemories: true })
-  }
+    this.setState({clickMemories: true});
+  };
 
   onClickMessages = () => {
-    this.setState({ clickMessages: false })
+    this.setState({clickMessages: false});
     console.log('on Click messages');
-    this.setState({ clickMessages: true })
+    this.setState({clickMessages: true});
+  };
 
-  }
+  onClickServices = () => {
+    this.setState({clickServices: false});
+    console.log('on Click services');
+    this.setState({clickServices: true});
+  };
+
+  onClickTimeline = () => {
+    this.setState({clickTimeline: false});
+    console.log('on Click Timeline');
+    this.setState({clickTimeline: true});
+  };
+
+  onClickVault = () => {
+    this.setState({clickVault: false});
+    console.log('on Click vault');
+    this.setState({clickVault: true});
+  };
 
   render() {
     console.log('Home Screen');
@@ -69,9 +75,14 @@ export default class ProductsComponent extends React.Component {
       <View>
         <Appbar />
         <Text>Gud Afternoon</Text>
-        <Image source={require("../assests/home_img.png")} />
-        <View style={{ justifyContent: "space-around", alignItems: "center" }}>
-          <View style={{ flexDirection: "row" }}>
+        <Image source={require('../assests/home_img.png')} />
+        <View
+          style={{
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            backgroundColor: '#FFFFFF',
+          }}>
+          <View style={{flexDirection: 'row'}}>
             {/* <Card style={[styles.cardContainer, this.state.clickFriends == true ? { backgroundColor: this.state.colorActive } : { backgroundColor: this.state.colorInactive }]}>
               <TouchableOpacity onPress={() => this.onClickFriends()}>
                 <Image style={styles.imageContainer} source={require("../assests/friends.png")} resizeMode="contain" />
@@ -79,47 +90,269 @@ export default class ProductsComponent extends React.Component {
               </TouchableOpacity>
             </Card> */}
 
-            <TouchableOpacity onPress={() => this.onClickFriends()}>
-              <Card style={[styles.cardContainer, this.state.clickFriends == true ? { backgroundColor: this.state.colorActive } : { backgroundColor: this.state.colorInactive }]}>
-                <Image style={styles.imageContainer} source={require("../assests/friends.png")} resizeMode="contain" />
+            {/* <TouchableOpacity onPress={() => this.onClickFriends()}>
+              <Card
+                style={[
+                  styles.cardContainer,
+                  this.state.clickFriends == true
+                    ? {backgroundColor: this.state.colorActive}
+                    : {backgroundColor: this.state.colorInactive},
+                ]}>
+                <Image
+                  style={styles.imageContainer}
+                  source={require('../assests/friendsOne.png')}
+                  resizeMode="contain"
+                />
                 <Text>Messages</Text>
               </Card>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
-            <Card style={[styles.cardContainer, this.state.clickMemories == true ? { backgroundColor: this.state.colorActive } : { backgroundColor: this.state.colorInactive }]}>
+            {this.state.clickFriends == true ? (
+              <TouchableOpacity onPress={() => this.onClickFriends()}>
+                <Card
+                  style={[
+                    styles.cardContainer,
+                    this.state.clickFriends == true
+                      ? {backgroundColor: this.state.colorActive}
+                      : {backgroundColor: this.state.colorInactive},
+                  ]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/friends.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Friends</Text>
+                </Card>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.onClickFriends()}>
+                <Card style={[styles.cardContainer]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/friendsOne.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Friends</Text>
+                </Card>
+              </TouchableOpacity>
+            )}
+
+            {this.state.clickMemories == true ? (
               <TouchableOpacity onPress={() => this.onClickMemories()}>
-                <Image style={styles.imageContainer} source={require("../assests/memories.png")} resizeMode="contain" />
+                <Card
+                  style={[
+                    styles.cardContainer,
+                    this.state.clickMemories == true
+                      ? {backgroundColor: this.state.colorActive}
+                      : {backgroundColor: this.state.colorInactive},
+                  ]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/memoriesOne.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Memories</Text>
+                </Card>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.onClickMemories()}>
+                <Card style={[styles.cardContainer]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/memories.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Memories</Text>
+                </Card>
+              </TouchableOpacity>
+            )}
+            {/*  <Card
+              style={[
+                styles.cardContainer,
+                this.state.clickMemories == true
+                  ? {backgroundColor: this.state.colorActive}
+                  : {backgroundColor: this.state.colorInactive},
+              ]}>
+              <TouchableOpacity onPress={() => this.onClickMemories()}>
+                <Image
+                  style={styles.imageContainer}
+                  source={require('../assests/memories.png')}
+                  resizeMode="contain"
+                />
                 <Text>Memories</Text>
               </TouchableOpacity>
-            </Card>
-            <TouchableOpacity onPress={() => this.onClickMessages()}>
-              <Card style={[styles.cardContainer, this.state.clickMessages == true ? { backgroundColor: this.state.colorActive } : { backgroundColor: this.state.colorInactive }]}>
-                <Image style={styles.imageContainer} source={require("../assests/messages.png")} resizeMode="contain" />
+            </Card> */}
+
+            {this.state.clickMessages == true ? (
+              <TouchableOpacity onPress={() => this.onClickMessages()}>
+                <Card
+                  style={[
+                    styles.cardContainer,
+                    this.state.clickMessages == true
+                      ? {backgroundColor: this.state.colorActive}
+                      : {backgroundColor: this.state.colorInactive},
+                  ]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/messagesOne.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Messages</Text>
+                </Card>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.onClickMessages()}>
+                <Card style={[styles.cardContainer]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/messages.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Messages</Text>
+                </Card>
+              </TouchableOpacity>
+            )}
+
+            {/* <TouchableOpacity onPress={() => this.onClickMessages()}>
+              <Card
+                style={[
+                  styles.cardContainer,
+                  this.state.clickMessages == true
+                    ? {backgroundColor: this.state.colorActive}
+                    : {backgroundColor: this.state.colorInactive},
+                ]}>
+                <Image
+                  style={styles.imageContainer}
+                  source={require('../assests/messages.png')}
+                  resizeMode="contain"
+                />
                 <Text>Messages</Text>
               </Card>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
 
-          <View style={{ flexDirection: "row" }}>
-            <Card style={styles.cardContainer}>
+          <View style={{flexDirection: 'row'}}>
+            {/* <Card style={styles.cardContainer}>
               <TouchableOpacity>
-                <Image style={styles.imageContainer} source={require("../assests/services.png")} resizeMode="contain" />
+                <Image
+                  style={styles.imageContainer}
+                  source={require('../assests/services.png')}
+                  resizeMode="contain"
+                />
                 <Text>Service</Text>
               </TouchableOpacity>
-            </Card>
+            </Card> */}
 
-            <Card style={styles.cardContainer}>
+            {this.state.clickServices == true ? (
+              <TouchableOpacity onPress={() => this.onClickServices()}>
+                <Card
+                  style={[
+                    styles.cardContainer,
+                    this.state.clickServices == true
+                      ? {backgroundColor: this.state.colorActive}
+                      : {backgroundColor: this.state.colorInactive},
+                  ]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/servicesOne.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Services</Text>
+                </Card>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.onClickServices()}>
+                <Card style={[styles.cardContainer]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/services.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Services</Text>
+                </Card>
+              </TouchableOpacity>
+            )}
+
+            {this.state.clickTimeline == true ? (
+              <TouchableOpacity onPress={() => this.onClickTimeline()}>
+                <Card
+                  style={[
+                    styles.cardContainer,
+                    this.state.clickTimeline == true
+                      ? {backgroundColor: this.state.colorActive}
+                      : {backgroundColor: this.state.colorInactive},
+                  ]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/timelineOne.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Timeline</Text>
+                </Card>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.onClickTimeline()}>
+                <Card style={[styles.cardContainer]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/timeline.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Timeline</Text>
+                </Card>
+              </TouchableOpacity>
+            )}
+
+            {/* <Card style={styles.cardContainer}>
               <TouchableOpacity>
-                <Image style={styles.imageContainer} source={require("../assests/timeline.png")} resizeMode="contain" />
+                <Image
+                  style={styles.imageContainer}
+                  source={require('../assests/timeline.png')}
+                  resizeMode="contain"
+                />
                 <Text>Timeline</Text>
               </TouchableOpacity>
-            </Card>
-            <Card style={styles.cardContainer}>
+            </Card> */}
+            {/* <Card style={styles.cardContainer}>
               <TouchableOpacity>
-                <Image style={styles.imageContainer} source={require("../assests/vault.png")} resizeMode="contain" />
+                <Image
+                  style={styles.imageContainer}
+                  source={require('../assests/vault.png')}
+                  resizeMode="contain"
+                />
                 <Text>Vault</Text>
               </TouchableOpacity>
-            </Card>
+            </Card> */}
+
+            {this.state.clickVault == true ? (
+              <TouchableOpacity onPress={() => this.onClickVault()}>
+                <Card
+                  style={[
+                    styles.cardContainer,
+                    this.state.clickVault == true
+                      ? {backgroundColor: this.state.colorActive}
+                      : {backgroundColor: this.state.colorInactive},
+                  ]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/vaultTwo.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Vault</Text>
+                </Card>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.onClickVault()}>
+                <Card style={[styles.cardContainer]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/vault.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Vault</Text>
+                </Card>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </View>
@@ -136,10 +369,10 @@ const styles = StyleSheet.create({
     width: 120,
     height: 80,
     borderRadius: 10,
-    alignItems: "center"
+    alignItems: 'center',
   },
   imageContainer: {
     width: 60,
     height: 60,
-  }
+  },
 });
