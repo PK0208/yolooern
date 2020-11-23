@@ -6,7 +6,8 @@ import {
   Dimensions,
   StyleSheet,
 } from 'react-native';
-import Icon from 'react-native-ionicons';
+//import Icon from 'react-native-ionicons';
+import Icon from 'react-native-vector-icons/Entypo';
 
 export default function Appbar(props) {
   const onPress = () => props.navigation.openDrawer();
@@ -15,14 +16,13 @@ export default function Appbar(props) {
       <TouchableOpacity onPress={onPress}>
         <Icon name="menu" color="white" />
       </TouchableOpacity>
-      <View>
-        <Text style={styles.titleText}>Home</Text>
-      </View>
-      <Icon name="cart" color="white" />
+      <Text style={styles.titleText}>Home</Text>
+
+      {/* <Icon name="cart" color="white" /> */}
     </View>
   );
 }
-const {height, width} = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   appBarContainer: {
     flexDirection: 'row',
@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: 'white',
-    fontSize: width * 0.062801932367,
+    fontSize: 25
   },
 });

@@ -4,8 +4,8 @@ export const TOOGLE_USERID = 'TOOGLE_USERID';
   return {type: TOOGLE_USERID, userId: id,userName:name};
 }; */
 
-export const toogleUser = (email) => {
-  console.log('loginActions', email);
-  return { type: TOOGLE_USERID, email: email };
+export const toogleUser = (email, first_name, id) => {
+  console.log('loginActions', email, first_name, id);
+  return { type: TOOGLE_USERID, email: email, first_name: first_name, id: id };
 };
 

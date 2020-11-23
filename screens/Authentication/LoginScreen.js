@@ -54,13 +54,19 @@ export default function LoginScreen({ navigation }) {
         console.log('Response_Data', response.data);
         console.log('Response_Data', response.data.data);
         console.log('Response_Data_email', response.data.data[0].email);
+        console.log('Response_Data_FirstName', response.data.data[0].first_name);
+        console.log('Response_Data_id', response.data.data[0].id);
         console.log('Response_Data_Status', response.data.status);
         if (response.data.status === 'true') {
           console.log('navigate to home screen');
           console.log('navigate to home screen', response.data.data[0].email);
+          console.log('navigate to home screen', response.data.data[0].first_name);
+          console.log('navigate to home screen', response.data.data[0].id);
           dispatch(
             toogleUser(
               response.data.data[0].email,
+              response.data.data[0].first_name,
+              response.data.data[0].id,
             ),
           );
         }
@@ -85,6 +91,10 @@ export default function LoginScreen({ navigation }) {
       .catch((error) => {
         console.log(error);
       }); */
+
+  toSignUp = async () => {
+    console.log('navigate to signup');
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -145,9 +155,10 @@ export default function LoginScreen({ navigation }) {
                   <Text style={styles.buttonText}>Sign In</Text>
                 </TouchableOpacity>
               </View>
+              {/* <TouchableOpacity onPress={this.toSignUp}></TouchableOpacity> */}
               <Text style={styles.title}>
                 <Text>Don't have an account ?
-              <Text styles={{ color: '#2C3790' }} numberOfLines={1}>Click here</Text>
+                    <Text styles={{ color: '#2C3790' }} numberOfLines={1}>Click here</Text>
                 </Text>
               </Text>
             </View>
