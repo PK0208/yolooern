@@ -76,12 +76,11 @@ export default class ProductsComponent extends React.Component {
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
         <Appbar />
-        <View>
-          <View styles={{flexDirection: 'row'}}>
-            <Icon name={'user'} size={65} style={{margin: 5, marginTop: 20}} />
-            <View>
-              <Text>Hello</Text>
-            </View>
+
+        <View style={{flexDirection: 'row'}}>
+          <Icon name={'user'} size={65} style={{margin: 5, marginTop: 20}} />
+          <View style={{marginTop: 25}}>
+            <Text style={{fontSize: 30}}>Hello</Text>
           </View>
         </View>
         <Image

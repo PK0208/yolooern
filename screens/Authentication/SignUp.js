@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {
-  Text,
   View,
   StatusBar,
   StyleSheet,
@@ -9,7 +8,7 @@ import {
   Platform,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Form, Item, Label, Button} from 'native-base';
+import {Form, Item, Label, Button, Text} from 'native-base';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Entypo';
 import IconTwo from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -66,98 +65,115 @@ export default class SignUp extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.container}>
-          <View style={styles.logoContainer}>
-            <Text style={styles.logoText}>Yolooe</Text>
-          </View>
-          <View style={styles.loginContainer}>
-            <View style={styles.contentContainer}>
-              <Form>
-                <Text style={styles.title}>
-                  Enter your login info to sign in to your account
-                </Text>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    style={styles.inputs}
-                    placeholder="User Name"
-                    underlineColorAndroid="transparent"
-                    onChangeText={(value) => this.setState({userName: value})}
-                  />
-                  <View style={styles.iconInside}>
-                    <Icon
-                      name={'user'}
-                      color="#fff"
-                      size={25}
-                      style={{margin: 5}}
-                    />
-                  </View>
-                </View>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    style={styles.inputs}
-                    placeholder="Email"
-                    underlineColorAndroid="transparent"
-                    onChangeText={(value) => this.setState({email: value})}
-                  />
-                  <View style={styles.iconInside}>
-                    <Icon
-                      name={'lock'}
-                      color="#fff"
-                      size={20}
-                      style={{margin: 5}}
-                    />
-                  </View>
-                </View>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    style={styles.inputs}
-                    placeholder="Mobile"
-                    underlineColorAndroid="transparent"
-                    onChangeText={(value) => this.setState({mobile: value})}
-                  />
-                  <View style={styles.iconInside}>
-                    <Icon
-                      name={'lock'}
-                      color="#fff"
-                      size={20}
-                      style={{margin: 5}}
-                    />
-                  </View>
-                </View>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    style={styles.inputs}
-                    placeholder="Password"
-                    underlineColorAndroid="transparent"
-                    onChangeText={(value) => this.setState({password: value})}
-                  />
-                  <View style={styles.iconInside}>
-                    <Icon
-                      name={'lock'}
-                      color="#fff"
-                      size={20}
-                      style={{margin: 5}}
-                    />
-                  </View>
-                </View>
-              </Form>
-              <View style={{flexDirection: 'column'}}>
-                <View style={styles.buttonContainer}>
-                  <TouchableOpacity
-                    style={{
-                      backgroundColor: '#2C3790',
-                      height: 40,
-                      borderRadius: 10,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                    onPress={this.onSignUp}>
-                    {/* onPress={signUp}> */}
-                    <Text style={styles.buttonText}>Sign Up</Text>
-                  </TouchableOpacity>
-                </View>
+        <View style={styles.logoContainer}>
+          <Text style={styles.logoText}>Yolooe</Text>
+          {/* Image */}
+        </View>
+        <View style={styles.contentContainer}>
+          <Form>
+            <Text style={styles.title}>
+              Enter your login info to sign in to your account
+            </Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.inputs}
+                placeholder="User Name"
+                underlineColorAndroid="transparent"
+                onChangeText={(value) => this.setState({userName: value})}
+              />
+              <View style={styles.iconInside}>
+                <Icon
+                  name={'user'}
+                  color="#fff"
+                  size={25}
+                  style={{margin: 5}}
+                />
               </View>
             </View>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.inputs}
+                placeholder="Email"
+                underlineColorAndroid="transparent"
+                onChangeText={(value) => this.setState({email: value})}
+              />
+              <View style={styles.iconInside}>
+                <Icon
+                  name={'mail'}
+                  color="#fff"
+                  size={20}
+                  style={{margin: 5}}
+                />
+              </View>
+            </View>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.inputs}
+                placeholder="Mobile"
+                underlineColorAndroid="transparent"
+                onChangeText={(value) => this.setState({mobile: value})}
+              />
+              <View style={styles.iconInside}>
+                <Icon
+                  name={'mobile'}
+                  color="#fff"
+                  size={20}
+                  style={{margin: 5}}
+                />
+              </View>
+            </View>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.inputs}
+                placeholder="Password"
+                underlineColorAndroid="transparent"
+                onChangeText={(value) => this.setState({password: value})}
+              />
+              <View style={styles.iconInside}>
+                <Icon
+                  name={'lock'}
+                  color="#fff"
+                  size={20}
+                  style={{margin: 5}}
+                />
+              </View>
+            </View>
+          </Form>
+          <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <Button
+              primary
+              textStyle={{color: '#fff'}}
+              style={{
+                borderRadius: 10,
+                height: 40,
+                width: 80,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              onPress={this.onSignUp}>
+              <Text uppercase={false}>Signup</Text>
+            </Button>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Text>Try in other ways</Text>
+            {/* <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+              <Text> click here</Text>
+            </TouchableOpacity> */}
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Icon
+              name={'facebook-with-circle'}
+              color="#2C3790"
+              size={50}
+              style={{margin: 5}}
+            />
+
+            <Icon
+              name={'google--with-circle'}
+              color="#2C3790"
+              size={50}
+              style={{margin: 5}}
+            />
           </View>
         </View>
       </SafeAreaView>
@@ -192,7 +208,9 @@ const styles = StyleSheet.create({
     flex: 2,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    borderRadius: 25,
+    alignItems: 'center',
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
   },
   title: {
     //fontFamily: FONTS.titleSemiBold,
@@ -215,7 +233,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   buttonContainer: {
-    paddingHorizontal: 125,
     paddingBottom: 35,
     borderRadius: 45,
   },

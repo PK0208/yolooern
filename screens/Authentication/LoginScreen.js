@@ -1,6 +1,5 @@
 import React, {useState, Component} from 'react';
 import {
-  Text,
   View,
   StatusBar,
   StyleSheet,
@@ -15,7 +14,7 @@ import {useDispatch} from 'react-redux';
 //import COLORS from '../../utils/Colors';
 //import Fonts from '../../utils/Fonts';
 //import { FONTS } from "util/Fonts";
-import {Form, Item, Label, Button} from 'native-base';
+import {Form, Item, Label, Button, Text} from 'native-base';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 //import { Network } from "network";
 //import { inject } from "mobx-react";
@@ -113,82 +112,77 @@ export default function LoginScreen({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
-        <View style={styles.logoContainer}>
-          <Text style={styles.logoText}>Yolooe</Text>
-          {/* Image */}
-        </View>
-        <View style={styles.loginContainer}>
-          <View style={styles.contentContainer}>
-            <Form>
-              <Text style={styles.title}>
-                Enter your login info to sign in to your account
-              </Text>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  style={styles.inputs}
-                  placeholder="User Name"
-                  underlineColorAndroid="transparent"
-                  /* onChangeText={(value) => this.setState({setEmail: value})} */
-                  onChangeText={setEmail}
-                />
-                <View style={styles.iconInside}>
-                  <Icon
-                    name={'user'}
-                    color="#fff"
-                    size={25}
-                    style={{margin: 5}}
-                  />
-                </View>
-              </View>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  style={styles.inputs}
-                  placeholder="Password"
-                  underlineColorAndroid="transparent"
-                  /*  onChangeText={(value) => this.setState({setPassword: value})} */
-                  onChangeText={setPassword}
-                />
-                <View style={styles.iconInside}>
-                  <Icon
-                    name={'lock'}
-                    color="#fff"
-                    size={20}
-                    style={{margin: 5}}
-                  />
-                </View>
-              </View>
-            </Form>
-            <View style={{flexDirection: 'column'}}>
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: '#2C3790',
-                    height: 40,
-                    borderRadius: 5,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                  onPress={login}>
-                  <Text style={styles.buttonText}>Sign In</Text>
-                </TouchableOpacity>
-              </View>
-              {/* <TouchableOpacity onPress={this.toSignUp}></TouchableOpacity> */}
-              <Text style={styles.title}>
-                <Text numberOfLines={1}>
-                  Don't have an account ?
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate('SignUp')}>
-                    <Text
-                      styles={{color: '#2C3790', marginTop: 35}}
-                      numberOfLines={1}>
-                      Click here
-                    </Text>
-                  </TouchableOpacity>
-                </Text>
-              </Text>
+      <View style={styles.logoContainer}>
+        <Text style={styles.logoText}>Yolooe</Text>
+        {/* Image */}
+      </View>
+      <View style={styles.contentContainer}>
+        <Form>
+          <Text style={styles.title}>
+            Enter your login info to sign in to your account
+          </Text>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.inputs}
+              placeholder="User Name"
+              underlineColorAndroid="transparent"
+              /* onChangeText={(value) => this.setState({setEmail: value})} */
+              onChangeText={setEmail}
+            />
+            <View style={styles.iconInside}>
+              <Icon name={'user'} color="#fff" size={25} style={{margin: 5}} />
             </View>
           </View>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.inputs}
+              placeholder="Password"
+              underlineColorAndroid="transparent"
+              secureTextEntry={true}
+              /*  onChangeText={(value) => this.setState({setPassword: value})} */
+              onChangeText={setPassword}
+            />
+            <View style={styles.iconInside}>
+              <Icon name={'lock'} color="#fff" size={20} style={{margin: 5}} />
+            </View>
+          </View>
+        </Form>
+        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+          <Button
+            primary
+            textStyle={{color: '#fff'}}
+            style={{
+              borderRadius: 10,
+              height: 40,
+              width: 80,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            onPress={login}>
+            <Text uppercase={false}>Sign in</Text>
+          </Button>
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <Text>Don't have an account ?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+            <Text> click here</Text>
+          </TouchableOpacity>
+        </View>
+        <Text>Try in other ways</Text>
+        <View style={{flexDirection: 'row'}}>
+          <Icon
+            name={'facebook-with-circle'}
+            color="#2C3790"
+            size={50}
+            style={{margin: 5}}
+          />
+
+          <Icon
+            name={'google--with-circle'}
+            color="#2C3790"
+            size={50}
+            style={{margin: 5}}
+          />
         </View>
       </View>
     </SafeAreaView>
@@ -216,15 +210,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-
   contentContainer: {
     flex: 2,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    borderRadius: 25,
+    //borderRadius: 35,
+    alignItems: 'center',
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
   },
   title: {
-    //fontFamily: FONTS.titleSemiBold,
+    fontFamily: 'Roboto',
     fontSize: 16,
     lineHeight: 20,
     marginLeft: 45,
@@ -244,9 +240,10 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   buttonContainer: {
-    paddingHorizontal: 125,
-    paddingBottom: 35,
-    borderRadius: 45,
+    /* paddingHorizontal: 125,
+    paddingBottom: 35, */
+    /* width: 80,
+    marginLeft: 120, */
   },
   buttonText: {
     color: '#fff',

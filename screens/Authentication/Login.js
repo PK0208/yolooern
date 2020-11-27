@@ -96,84 +96,127 @@ export default class SignUp extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.container}>
-          <View style={styles.logoContainer}>
-            <Text style={styles.logoText}>Yolooe</Text>
-            {/* Image */}
-          </View>
-          <View style={styles.loginContainer}>
-            <View style={styles.contentContainer}>
-              <Form>
-                <Text style={styles.title}>
-                  Enter your login info to sign in to your account
-                </Text>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    style={styles.inputs}
-                    placeholder="User Name"
-                    underlineColorAndroid="transparent"
-                    /* onChangeText={(value) => this.setState({setEmail: value})} */
-                    //onChangeText={setEmail}
-                  />
-                  <View style={styles.iconInside}>
-                    <Icon
-                      name={'user'}
-                      color="#fff"
-                      size={25}
-                      style={{margin: 5}}
-                    />
-                  </View>
-                </View>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    style={styles.inputs}
-                    placeholder="Password"
-                    underlineColorAndroid="transparent"
-                    /*  onChangeText={(value) => this.setState({setPassword: value})} */
-                    //onChangeText={setPassword}
-                  />
-                  <View style={styles.iconInside}>
-                    <Icon
-                      name={'lock'}
-                      color="#fff"
-                      size={20}
-                      style={{margin: 5}}
-                    />
-                  </View>
-                </View>
-              </Form>
-              <View style={{flexDirection: 'column'}}>
-                <View style={styles.buttonContainer}>
-                  <TouchableOpacity
-                    style={{
-                      backgroundColor: '#2C3790',
-                      height: 40,
-                      borderRadius: 5,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                    onPress={() => this.login()}>
-                    <Text style={styles.buttonText}>Sign In</Text>
-                  </TouchableOpacity>
-                </View>
-                {/* <TouchableOpacity onPress={this.toSignUp}></TouchableOpacity> */}
-                <Text style={styles.title}>
-                  <Text numberOfLines={1}>
-                    Don't have an account ?
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate('SignUp')}>
-                      <Text
-                        styles={{color: '#2C3790', marginTop: 35}}
-                        numberOfLines={1}>
-                        Click here
-                      </Text>
-                    </TouchableOpacity>
-                  </Text>
-                </Text>
+        <View style={styles.imageContainer}>
+          <Image
+            source={require('../../assets/images/Curve.png')}
+            style={styles.logo}
+          />
+          <Text
+            style={{
+              position: 'absolute',
+              fontSize: 22,
+              color: 'white',
+              fontFamily: 'POORICH',
+            }}>
+            Login
+          </Text>
+        </View>
+        <View
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'relative',
+            top: -20,
+          }}>
+          <Logo />
+        </View>
+        <ScrollView>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginBottom: height * 0.03,
+            }}>
+            <View
+              style={{
+                borderColor: 'green',
+                flexDirection: 'row',
+                borderWidth: 1,
+                height: 50,
+                width: '65%',
+                borderRadius: 20,
+              }}>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  width: '20%',
+                  alignItems: 'center',
+                }}>
+                <Icon name="mail" color="#5CB85C" size={25} />
               </View>
+
+              <TextInput
+                style={{width: '80%', height: 50}}
+                placeholder="Email"
+                placeholderTextColor="#5CB85C"
+                value={email}
+                onChangeText={setEmail}
+              />
             </View>
           </View>
-        </View>
+          <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <View
+              style={{
+                borderColor: 'green',
+                flexDirection: 'row',
+                borderWidth: 1,
+                height: 50,
+                width: '65%',
+                borderRadius: 20,
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  width: '20%',
+                  alignItems: 'center',
+                }}>
+                <Icon name="lock" color="#5CB85C" size={25} />
+              </View>
+
+              <TextInput
+                style={{width: '80%', height: 50}}
+                placeholder="Password"
+                placeholderTextColor="#5CB85C"
+                secureTextEntry
+                value={password}
+                onChangeText={setPassword}
+              />
+            </View>
+          </View>
+          <View style={{alignItems: 'flex-end', marginTop: 10, width: '65%'}}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Forgot Password')}>
+              <Text style={{color: 'red'}}>Forgot Password?</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{alignItems: 'center'}}>
+            <TouchableOpacity
+              style={{
+                paddingHorizontal: width * 0.14,
+                paddingVertical: height * 0.02,
+                borderRadius: 7,
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginVertical: height * 0.03,
+                backgroundColor: '#5CB85C',
+              }}
+              onPress={checkLoginData}>
+              <Text style={{color: 'white', fontSize: width * 0.048}}>
+                Login
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{alignItems: 'center', marginBottom: 20}}>
+            <Text style={{color: '#5CB85C'}}>Don't Have An Account?</Text>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate('SignUp')}>
+              <Text style={{color: '#5CB85C'}}>Sign Up</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </SafeAreaView>
     );
   }
