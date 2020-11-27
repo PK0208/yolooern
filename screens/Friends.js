@@ -56,8 +56,11 @@ export default class Friends extends React.Component {
       .post('https://ixiono.com/yolooe/api/view_contact_created_by', fd)
       .then((response) => {
         console.log('Response_Data', response.data);
+        console.log('Response_Data-2', response.data.data);
+        let arr = [];
+        arr = response.data;
         //console.log('Response_Data', response);
-        this.setState({allfriends: response.data});
+        this.setState({allfriends: response.data.data});
         console.log('Response_Data--State', this.state.allfriends);
       });
   };
@@ -83,289 +86,301 @@ export default class Friends extends React.Component {
         {/* <ImageBackground
           source={require('../assests/OneFriend.png')}
           resizeMode="contain"></ImageBackground> */}
-        {/* <View>
-          <Text>Hey</Text>
-          {this.state.allfriends.map((item) => (
-            <View>
-              <Text>{item.address}</Text>
-            </View>
-          ))}
-        </View> */}
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            margin: 20,
-          }}>
-          {this.state.clickFriends == true ? (
-            <TouchableOpacity onPress={() => this.onClickFriends()}>
-              <Card
-                style={[
-                  styles.cardContainer,
-                  this.state.clickFriends == true
-                    ? {backgroundColor: this.state.colorActive}
-                    : {backgroundColor: this.state.colorInactive},
-                ]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/OneFriend.png')}
-                  resizeMode="contain"
-                />
-                <Text>Demo</Text>
-              </Card>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => this.onClickFriends()}>
-              <Card style={[styles.cardContainer]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/OneFriend.png')}
-                  resizeMode="contain"
-                />
-                <Text>Demo</Text>
-              </Card>
-            </TouchableOpacity>
-          )}
+        <ScrollView>
+          <View>
+            <Text>Hey</Text>
+            {this.state.allfriends.map((item) => (
+              <View>
+                <Text>{item.address}</Text>
+                <Text>{item.created_by}</Text>
+                <Text>{item.dob}</Text>
+                <Text>{item.facebook}</Text>
+                <Text>{item.group_id}</Text>
+                <Text>{item.id}</Text>
+                <Text>{item.image}</Text>
+                <Text>{item.instra}</Text>
+                <Text>{item.name}</Text>
+                <Text>{item.relation}</Text>
+                <Text>{item.whtasapp}</Text>
+              </View>
+            ))}
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              margin: 20,
+            }}>
+            {this.state.clickFriends == true ? (
+              <TouchableOpacity onPress={() => this.onClickFriends()}>
+                <Card
+                  style={[
+                    styles.cardContainer,
+                    this.state.clickFriends == true
+                      ? {backgroundColor: this.state.colorActive}
+                      : {backgroundColor: this.state.colorInactive},
+                  ]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/OneFriend.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Demo</Text>
+                </Card>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.onClickFriends()}>
+                <Card style={[styles.cardContainer]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/OneFriend.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Demo</Text>
+                </Card>
+              </TouchableOpacity>
+            )}
 
-          {this.state.clickMessages == true ? (
-            <TouchableOpacity onPress={() => this.onClickMessages()}>
-              <Card
-                style={[
-                  styles.cardContainer,
-                  this.state.clickMessages == true
-                    ? {backgroundColor: this.state.colorActive}
-                    : {backgroundColor: this.state.colorInactive},
-                ]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/OneFriend.png')}
-                  resizeMode="contain"
-                />
-                <Text>Demo</Text>
-              </Card>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => this.onClickMessages()}>
-              <Card style={[styles.cardContainer]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/OneFriend.png')}
-                  resizeMode="contain"
-                />
-                <Text>Demo</Text>
-              </Card>
-            </TouchableOpacity>
-          )}
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            margin: 20,
-          }}>
-          {this.state.clickFriends == true ? (
-            <TouchableOpacity onPress={() => this.onClickFriends()}>
-              <Card
-                style={[
-                  styles.cardContainer,
-                  this.state.clickFriends == true
-                    ? {backgroundColor: this.state.colorActive}
-                    : {backgroundColor: this.state.colorInactive},
-                ]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/OneFriend.png')}
-                  resizeMode="contain"
-                />
-                <Text>Demo</Text>
-              </Card>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => this.onClickFriends()}>
-              <Card style={[styles.cardContainer]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/OneFriend.png')}
-                  resizeMode="contain"
-                />
-                <Text>Demo</Text>
-              </Card>
-            </TouchableOpacity>
-          )}
+            {this.state.clickMessages == true ? (
+              <TouchableOpacity onPress={() => this.onClickMessages()}>
+                <Card
+                  style={[
+                    styles.cardContainer,
+                    this.state.clickMessages == true
+                      ? {backgroundColor: this.state.colorActive}
+                      : {backgroundColor: this.state.colorInactive},
+                  ]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/OneFriend.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Demo</Text>
+                </Card>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.onClickMessages()}>
+                <Card style={[styles.cardContainer]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/OneFriend.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Demo</Text>
+                </Card>
+              </TouchableOpacity>
+            )}
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              margin: 20,
+            }}>
+            {this.state.clickFriends == true ? (
+              <TouchableOpacity onPress={() => this.onClickFriends()}>
+                <Card
+                  style={[
+                    styles.cardContainer,
+                    this.state.clickFriends == true
+                      ? {backgroundColor: this.state.colorActive}
+                      : {backgroundColor: this.state.colorInactive},
+                  ]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/OneFriend.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Demo</Text>
+                </Card>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.onClickFriends()}>
+                <Card style={[styles.cardContainer]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/OneFriend.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Demo</Text>
+                </Card>
+              </TouchableOpacity>
+            )}
 
-          {this.state.clickMessages == true ? (
-            <TouchableOpacity onPress={() => this.onClickMessages()}>
-              <Card
-                style={[
-                  styles.cardContainer,
-                  this.state.clickMessages == true
-                    ? {backgroundColor: this.state.colorActive}
-                    : {backgroundColor: this.state.colorInactive},
-                ]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/OneFriend.png')}
-                  resizeMode="contain"
-                />
-                <Text>Demo</Text>
-              </Card>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => this.onClickMessages()}>
-              <Card style={[styles.cardContainer]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/OneFriend.png')}
-                  resizeMode="contain"
-                />
-                <Text>Demo</Text>
-              </Card>
-            </TouchableOpacity>
-          )}
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            margin: 20,
-          }}>
-          {this.state.clickFriends == true ? (
-            <TouchableOpacity onPress={() => this.onClickFriends()}>
-              <Card
-                style={[
-                  styles.cardContainer,
-                  this.state.clickFriends == true
-                    ? {backgroundColor: this.state.colorActive}
-                    : {backgroundColor: this.state.colorInactive},
-                ]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/OneFriend.png')}
-                  resizeMode="contain"
-                />
-                <Text>Demo</Text>
-              </Card>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => this.onClickFriends()}>
-              <Card style={[styles.cardContainer]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/OneFriend.png')}
-                  resizeMode="contain"
-                />
-                <Text>Demo</Text>
-              </Card>
-            </TouchableOpacity>
-          )}
+            {this.state.clickMessages == true ? (
+              <TouchableOpacity onPress={() => this.onClickMessages()}>
+                <Card
+                  style={[
+                    styles.cardContainer,
+                    this.state.clickMessages == true
+                      ? {backgroundColor: this.state.colorActive}
+                      : {backgroundColor: this.state.colorInactive},
+                  ]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/OneFriend.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Demo</Text>
+                </Card>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.onClickMessages()}>
+                <Card style={[styles.cardContainer]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/OneFriend.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Demo</Text>
+                </Card>
+              </TouchableOpacity>
+            )}
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              margin: 20,
+            }}>
+            {this.state.clickFriends == true ? (
+              <TouchableOpacity onPress={() => this.onClickFriends()}>
+                <Card
+                  style={[
+                    styles.cardContainer,
+                    this.state.clickFriends == true
+                      ? {backgroundColor: this.state.colorActive}
+                      : {backgroundColor: this.state.colorInactive},
+                  ]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/OneFriend.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Demo</Text>
+                </Card>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.onClickFriends()}>
+                <Card style={[styles.cardContainer]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/OneFriend.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Demo</Text>
+                </Card>
+              </TouchableOpacity>
+            )}
 
-          {this.state.clickMessages == true ? (
-            <TouchableOpacity onPress={() => this.onClickMessages()}>
-              <Card
-                style={[
-                  styles.cardContainer,
-                  this.state.clickMessages == true
-                    ? {backgroundColor: this.state.colorActive}
-                    : {backgroundColor: this.state.colorInactive},
-                ]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/OneFriend.png')}
-                  resizeMode="contain"
-                />
-                <Text>Demo</Text>
-              </Card>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => this.onClickMessages()}>
-              <Card style={[styles.cardContainer]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/OneFriend.png')}
-                  resizeMode="contain"
-                />
-                <Text>Demo</Text>
-              </Card>
-            </TouchableOpacity>
-          )}
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            margin: 20,
-          }}>
-          {this.state.clickFriends == true ? (
-            <TouchableOpacity onPress={() => this.onClickFriends()}>
-              <Card
-                style={[
-                  styles.cardContainer,
-                  this.state.clickFriends == true
-                    ? {backgroundColor: this.state.colorActive}
-                    : {backgroundColor: this.state.colorInactive},
-                ]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/OneFriend.png')}
-                  resizeMode="contain"
-                />
-                <Text>Demo</Text>
-              </Card>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => this.onClickFriends()}>
-              <Card style={[styles.cardContainer]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/OneFriend.png')}
-                  resizeMode="contain"
-                />
-                <Text>Demo</Text>
-              </Card>
-            </TouchableOpacity>
-          )}
+            {this.state.clickMessages == true ? (
+              <TouchableOpacity onPress={() => this.onClickMessages()}>
+                <Card
+                  style={[
+                    styles.cardContainer,
+                    this.state.clickMessages == true
+                      ? {backgroundColor: this.state.colorActive}
+                      : {backgroundColor: this.state.colorInactive},
+                  ]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/OneFriend.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Demo</Text>
+                </Card>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.onClickMessages()}>
+                <Card style={[styles.cardContainer]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/OneFriend.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Demo</Text>
+                </Card>
+              </TouchableOpacity>
+            )}
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              margin: 20,
+            }}>
+            {this.state.clickFriends == true ? (
+              <TouchableOpacity onPress={() => this.onClickFriends()}>
+                <Card
+                  style={[
+                    styles.cardContainer,
+                    this.state.clickFriends == true
+                      ? {backgroundColor: this.state.colorActive}
+                      : {backgroundColor: this.state.colorInactive},
+                  ]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/OneFriend.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Demo</Text>
+                </Card>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.onClickFriends()}>
+                <Card style={[styles.cardContainer]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/OneFriend.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Demo</Text>
+                </Card>
+              </TouchableOpacity>
+            )}
 
-          {this.state.clickMessages == true ? (
-            <TouchableOpacity onPress={() => this.onClickMessages()}>
-              <Card
-                style={[
-                  styles.cardContainer,
-                  this.state.clickMessages == true
-                    ? {backgroundColor: this.state.colorActive}
-                    : {backgroundColor: this.state.colorInactive},
-                ]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/OneFriend.png')}
-                  resizeMode="contain"
-                />
-                <Text>Demo</Text>
-              </Card>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => this.onClickMessages()}>
-              <Card style={[styles.cardContainer]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/OneFriend.png')}
-                  resizeMode="contain"
-                />
-                <Text>Demo</Text>
-              </Card>
-            </TouchableOpacity>
-          )}
-        </View>
-        <View styles={{marginTop: 50}}>
-          <Fab position="bottomRight" onPress={() => this.onPressFAB()}>
-            <Icon name="plus" />
-          </Fab>
-        </View>
-        {/* <Fab
+            {this.state.clickMessages == true ? (
+              <TouchableOpacity onPress={() => this.onClickMessages()}>
+                <Card
+                  style={[
+                    styles.cardContainer,
+                    this.state.clickMessages == true
+                      ? {backgroundColor: this.state.colorActive}
+                      : {backgroundColor: this.state.colorInactive},
+                  ]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/OneFriend.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Demo</Text>
+                </Card>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.onClickMessages()}>
+                <Card style={[styles.cardContainer]}>
+                  <Image
+                    style={styles.imageContainer}
+                    source={require('../assests/OneFriend.png')}
+                    resizeMode="contain"
+                  />
+                  <Text>Demo</Text>
+                </Card>
+              </TouchableOpacity>
+            )}
+          </View>
+          <View styles={{marginTop: 50}}>
+            <Fab position="bottomRight" onPress={() => this.onPressFAB()}>
+              <Icon name="plus" />
+            </Fab>
+          </View>
+          {/* <Fab
           style={{backgroundColor: '2C3790'}}
           position="bottomRight"
           onPress={() => console.log('FAB Pressed')}>
           <Icon name="plus" />
         </Fab> */}
+        </ScrollView>
       </View>
     );
   }
