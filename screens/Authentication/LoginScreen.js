@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, {useState, Component} from 'react';
 import {
   Text,
   View,
@@ -9,14 +9,14 @@ import {
   Platform,
   Dimensions,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useDispatch } from 'react-redux';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {useDispatch} from 'react-redux';
 //import { COLORS } from "util/Colors";
 //import COLORS from '../../utils/Colors';
 //import Fonts from '../../utils/Fonts';
 //import { FONTS } from "util/Fonts";
-import { Form, Item, Label, Button } from 'native-base';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {Form, Item, Label, Button} from 'native-base';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 //import { Network } from "network";
 //import { inject } from "mobx-react";
 //import { STORES } from "store/Type";
@@ -25,9 +25,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Entypo';
 import axios from 'axios';
 //import { color } from 'react-native-reanimated';
-import { toogleUser } from '../../store/actions/loginActions';
+import {toogleUser} from '../../store/actions/loginActions';
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen({navigation}) {
   const dispatch = useDispatch();
   const [count, setCount] = useState(0);
   const onPress = () => {
@@ -36,14 +36,23 @@ export default function LoginScreen({ navigation }) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const { height, width } = Dimensions.get('window');
-
+  const {height, width} = Dimensions.get('window');
 
   login = async () => {
     console.log('------LOGIN API POST-------');
     let fd = new FormData();
-    fd.append('email', 'abcd@gmail.com');
-    fd.append('password', '1234');
+    /* fd.append('email', 'abcd@gmail.com');
+    fd.append('password', '1234'); */
+
+    console.log('Email, Password', email, password);
+
+    /* console.log('------LOGIN API POST-------', setEmail);
+    console.log('------LOGIN API POST-------', this.state.setPassword);
+    console.log('------LOGIN API POST-------', fd);*/
+    fd.append('email', email);
+    fd.append('password', password);
+
+    console.log('Email, Password---FormData', fd);
     let data = {
       email: 'abc@gmail.com',
       password: '1234',
@@ -54,13 +63,19 @@ export default function LoginScreen({ navigation }) {
         console.log('Response_Data', response.data);
         console.log('Response_Data', response.data.data);
         console.log('Response_Data_email', response.data.data[0].email);
-        console.log('Response_Data_FirstName', response.data.data[0].first_name);
+        console.log(
+          'Response_Data_FirstName',
+          response.data.data[0].first_name,
+        );
         console.log('Response_Data_id', response.data.data[0].id);
         console.log('Response_Data_Status', response.data.status);
         if (response.data.status === 'true') {
           console.log('navigate to home screen');
           console.log('navigate to home screen', response.data.data[0].email);
-          console.log('navigate to home screen', response.data.data[0].first_name);
+          console.log(
+            'navigate to home screen',
+            response.data.data[0].first_name,
+          );
           console.log('navigate to home screen', response.data.data[0].id);
           dispatch(
             toogleUser(
@@ -94,13 +109,14 @@ export default function LoginScreen({ navigation }) {
 
   toSignUp = async () => {
     console.log('navigate to signup');
-  }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           <Text style={styles.logoText}>Yolooe</Text>
+          {/* Image */}
         </View>
         <View style={styles.loginContainer}>
           <View style={styles.contentContainer}>
@@ -113,14 +129,15 @@ export default function LoginScreen({ navigation }) {
                   style={styles.inputs}
                   placeholder="User Name"
                   underlineColorAndroid="transparent"
-                  onChangeText={(value) => this.setState({ email: value })}
+                  /* onChangeText={(value) => this.setState({setEmail: value})} */
+                  onChangeText={setEmail}
                 />
                 <View style={styles.iconInside}>
                   <Icon
                     name={'user'}
                     color="#fff"
                     size={25}
-                    style={{ margin: 5 }}
+                    style={{margin: 5}}
                   />
                 </View>
               </View>
@@ -129,19 +146,20 @@ export default function LoginScreen({ navigation }) {
                   style={styles.inputs}
                   placeholder="Password"
                   underlineColorAndroid="transparent"
-                  onChangeText={(value) => this.setState({ password: value })}
+                  /*  onChangeText={(value) => this.setState({setPassword: value})} */
+                  onChangeText={setPassword}
                 />
                 <View style={styles.iconInside}>
                   <Icon
                     name={'lock'}
                     color="#fff"
                     size={20}
-                    style={{ margin: 5 }}
+                    style={{margin: 5}}
                   />
                 </View>
               </View>
             </Form>
-            <View style={{ flexDirection: 'column' }}>
+            <View style={{flexDirection: 'column'}}>
               <View style={styles.buttonContainer}>
                 <TouchableOpacity
                   style={{
@@ -157,8 +175,16 @@ export default function LoginScreen({ navigation }) {
               </View>
               {/* <TouchableOpacity onPress={this.toSignUp}></TouchableOpacity> */}
               <Text style={styles.title}>
-                <Text>Don't have an account ?
-                    <Text styles={{ color: '#2C3790' }} numberOfLines={1}>Click here</Text>
+                <Text numberOfLines={1}>
+                  Don't have an account ?
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('SignUp')}>
+                    <Text
+                      styles={{color: '#2C3790', marginTop: 35}}
+                      numberOfLines={1}>
+                      Click here
+                    </Text>
+                  </TouchableOpacity>
                 </Text>
               </Text>
             </View>

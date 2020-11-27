@@ -11,14 +11,13 @@ import Icon from 'react-native-vector-icons/Entypo';
 
 export default function Appbar(props) {
   const onPress = () => props.navigation.openDrawer();
+
   return (
     <View style={styles.appBarContainer}>
-      <TouchableOpacity onPress={onPress}>
-        <Icon name="menu" color="white" />
+      <TouchableOpacity>
+        <Icon name="menu" color="white" size={25} />
       </TouchableOpacity>
       <Text style={styles.titleText}>Home</Text>
-
-      {/* <Icon name="cart" color="white" /> */}
     </View>
   );
 }
@@ -28,12 +27,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 20 /*,borderBottomLeftRadius:30*/,
     alignItems: 'center',
-    backgroundColor: '#5CB85C',
+    backgroundColor: '#2C3790',
     height: height * 0.082065217391,
-    justifyContent: 'space-between',
   },
   titleText: {
     color: 'white',
     fontSize: 25,
+    margin: 15,
+    marginLeft: 100,
   },
 });

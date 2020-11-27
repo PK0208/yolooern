@@ -5,6 +5,9 @@ import DrawerContent from '../Components/DrawerContent';
 import {ContactStackNavigator} from './StackNavigator';
 import TabNavigator from './TabNavigator';
 import Home from '../screens/Home';
+import SignUp from '../screens/Authentication/SignUp';
+import Friends from '../screens/Friends';
+import CreateFriends from '../screens/CreateFriends';
 
 const Drawer = createDrawerNavigator();
 
@@ -20,18 +23,24 @@ const DrawerNavigator = () => {
            itemStyle: { marginVertical: 5 },
          }}></Drawer.Navigator> */
     /* <Drawer.Navigator screenOptions={{headerShown:false}} drawerContent={props => <DrawerContent {...props} />}  > */
-    /* <Drawer.Navigator drawerStyle={{
-            backgroundColor: '#334CFF',
-        }}
-            screenOptions={{ headerShown: false }} drawerContentOptions={{
-                activeTintColor: '#FFFFFF',
-                itemStyle: { marginVertical: 5 },
-            }} > */
     <Drawer.Navigator
+      drawerStyle={{
+        backgroundColor: '#2C3790',
+      }}
       screenOptions={{headerShown: false}}
-      drawerContent={(props) => <DrawerContent {...props} />}>
+      drawerContentOptions={{
+        activeTintColor: '#FFFFFF',
+        itemStyle: {marginVertical: 5},
+        labelStyle: {fontSize: 15, marginLeft: 10, color: 'white'},
+      }}>
       <Drawer.Screen name="Home" component={Home} />
-      <Drawer.Screen name="Contact" component={ContactStackNavigator} />
+      <Drawer.Screen name="Friends" component={Friends} />
+      <Drawer.Screen name="CreateFriends" component={CreateFriends} />
+      <Drawer.Screen name="Profile" component={ContactStackNavigator} />
+      <Drawer.Screen name="Wallet" component={ContactStackNavigator} />
+      <Drawer.Screen name="Settings" component={ContactStackNavigator} />
+      <Drawer.Screen name="Notifications" component={ContactStackNavigator} />
+      <Drawer.Screen name="logout" component={ContactStackNavigator} />
     </Drawer.Navigator>
   );
 };

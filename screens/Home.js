@@ -13,6 +13,7 @@ import Products from '../Components/ProductsComponent';
 import axios from 'axios';
 import {Card, CardItem, Body, Text} from 'native-base';
 import home_img from '../assests/home_img.png';
+import Icon from 'react-native-vector-icons/EvilIcons';
 
 const {height, width} = Dimensions.get('window');
 
@@ -30,13 +31,15 @@ export default class ProductsComponent extends React.Component {
   };
 
   componentDidMount() {
-    console.log('--------- HomeScreen -------------------------');
+    console.log('--------- HomeScreen -------------');
   }
 
   onClickFriends = () => {
     this.setState({clickFriends: false});
     console.log('on Click Friends');
     this.setState({clickFriends: true});
+    //navigation.navigate('SignUp');
+    this.props.navigation.navigate('Friends');
   };
 
   onClickMemories = () => {
@@ -70,43 +73,33 @@ export default class ProductsComponent extends React.Component {
   };
 
   render() {
-    console.log('Home Screen');
     return (
-      <View>
+      <View style={{flex: 1, backgroundColor: 'white'}}>
         <Appbar />
-        <Text>Gud Afternoon</Text>
-        <Image source={require('../assests/home_img.png')} />
+        <View>
+          <View styles={{flexDirection: 'row'}}>
+            <Icon name={'user'} size={65} style={{margin: 5, marginTop: 20}} />
+            <View>
+              <Text>Hello</Text>
+            </View>
+          </View>
+        </View>
+        <Image
+          source={require('../assests/home_img.png')}
+          resizeMode="contain"
+          style={{width: '100%', height: 200}}
+        />
         <View
           style={{
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
             alignItems: 'center',
-            backgroundColor: '#FFFFFF',
+            backgroundColor: 'white',
+            margin: 15,
           }}>
-          <View style={{flexDirection: 'row'}}>
-            {/* <Card style={[styles.cardContainer, this.state.clickFriends == true ? { backgroundColor: this.state.colorActive } : { backgroundColor: this.state.colorInactive }]}>
-              <TouchableOpacity onPress={() => this.onClickFriends()}>
-                <Image style={styles.imageContainer} source={require("../assests/friends.png")} resizeMode="contain" />
-                <Text>Friends</Text>
-              </TouchableOpacity>
-            </Card> */}
-
-            {/* <TouchableOpacity onPress={() => this.onClickFriends()}>
-              <Card
-                style={[
-                  styles.cardContainer,
-                  this.state.clickFriends == true
-                    ? {backgroundColor: this.state.colorActive}
-                    : {backgroundColor: this.state.colorInactive},
-                ]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/friendsOne.png')}
-                  resizeMode="contain"
-                />
-                <Text>Messages</Text>
-              </Card>
-            </TouchableOpacity> */}
-
+          <View
+            style={{
+              flexDirection: 'row',
+            }}>
             {this.state.clickFriends == true ? (
               <TouchableOpacity onPress={() => this.onClickFriends()}>
                 <Card
@@ -120,6 +113,7 @@ export default class ProductsComponent extends React.Component {
                     style={styles.imageContainer}
                     source={require('../assests/friends.png')}
                     resizeMode="contain"
+                    style={{width: 50, height: 50}}
                   />
                   <Text>Friends</Text>
                 </Card>
@@ -166,22 +160,6 @@ export default class ProductsComponent extends React.Component {
                 </Card>
               </TouchableOpacity>
             )}
-            {/*  <Card
-              style={[
-                styles.cardContainer,
-                this.state.clickMemories == true
-                  ? {backgroundColor: this.state.colorActive}
-                  : {backgroundColor: this.state.colorInactive},
-              ]}>
-              <TouchableOpacity onPress={() => this.onClickMemories()}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/memories.png')}
-                  resizeMode="contain"
-                />
-                <Text>Memories</Text>
-              </TouchableOpacity>
-            </Card> */}
 
             {this.state.clickMessages == true ? (
               <TouchableOpacity onPress={() => this.onClickMessages()}>
@@ -212,37 +190,9 @@ export default class ProductsComponent extends React.Component {
                 </Card>
               </TouchableOpacity>
             )}
-
-            {/* <TouchableOpacity onPress={() => this.onClickMessages()}>
-              <Card
-                style={[
-                  styles.cardContainer,
-                  this.state.clickMessages == true
-                    ? {backgroundColor: this.state.colorActive}
-                    : {backgroundColor: this.state.colorInactive},
-                ]}>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/messages.png')}
-                  resizeMode="contain"
-                />
-                <Text>Messages</Text>
-              </Card>
-            </TouchableOpacity> */}
           </View>
 
-          <View style={{flexDirection: 'row'}}>
-            {/* <Card style={styles.cardContainer}>
-              <TouchableOpacity>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/services.png')}
-                  resizeMode="contain"
-                />
-                <Text>Service</Text>
-              </TouchableOpacity>
-            </Card> */}
-
+          <View style={{flexDirection: 'row', margin: 15}}>
             {this.state.clickServices == true ? (
               <TouchableOpacity onPress={() => this.onClickServices()}>
                 <Card
@@ -303,27 +253,6 @@ export default class ProductsComponent extends React.Component {
               </TouchableOpacity>
             )}
 
-            {/* <Card style={styles.cardContainer}>
-              <TouchableOpacity>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/timeline.png')}
-                  resizeMode="contain"
-                />
-                <Text>Timeline</Text>
-              </TouchableOpacity>
-            </Card> */}
-            {/* <Card style={styles.cardContainer}>
-              <TouchableOpacity>
-                <Image
-                  style={styles.imageContainer}
-                  source={require('../assests/vault.png')}
-                  resizeMode="contain"
-                />
-                <Text>Vault</Text>
-              </TouchableOpacity>
-            </Card> */}
-
             {this.state.clickVault == true ? (
               <TouchableOpacity onPress={() => this.onClickVault()}>
                 <Card
@@ -366,10 +295,14 @@ const styles = StyleSheet.create({
     height: 50,
   },
   cardContainer: {
-    width: 120,
-    height: 80,
+    width: 100,
+    height: 100,
     borderRadius: 10,
     alignItems: 'center',
+    justifyContent: 'center',
+    borderRightWidth: 10,
+    borderRightColor: '#fff',
+    borderColor: '#fff',
   },
   imageContainer: {
     width: 60,

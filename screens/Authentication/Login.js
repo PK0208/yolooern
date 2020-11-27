@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState, Component} from 'react';
 import {
   Text,
   View,
@@ -7,14 +7,25 @@ import {
   Image,
   TextInput,
   Platform,
+  Dimensions,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useDispatch} from 'react-redux';
+//import { COLORS } from "util/Colors";
+//import COLORS from '../../utils/Colors';
+//import Fonts from '../../utils/Fonts';
+//import { FONTS } from "util/Fonts";
 import {Form, Item, Label, Button} from 'native-base';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+//import { Network } from "network";
+//import { inject } from "mobx-react";
+//import { STORES } from "store/Type";
+//import { _storeData, _retrieveData } from "storage";
+//import { ASYNC } from "storage/Type";
 import Icon from 'react-native-vector-icons/Entypo';
-import IconTwo from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
-import Toast from 'react-native-simple-toast';
+//import { color } from 'react-native-reanimated';
+import {toogleUser} from '../../store/actions/loginActions';
 
 export default class SignUp extends React.Component {
   constructor(props) {
@@ -30,33 +41,52 @@ export default class SignUp extends React.Component {
       errorMessagePassword: '',
       birthday: '',
     };
-    //this.handleLogin = this.handleLogin.bind(this);
   }
 
-  onSignUp = async () => {
-    console.log('------- Sign Up Api Post --------');
+  login = async () => {
+    console.log('------LOGIN API POST-------');
     let fd = new FormData();
-    console.log('userName', this.state.userName);
-    console.log('email', this.state.email);
-    console.log('mobile', this.state.mobile);
-    console.log('password', this.state.password);
-    console.log('userName', this.state.userName);
-    console.log('userName', this.state.userName);
-    fd.append('f_name', this.state.userName);
-    fd.append('l_name', this.state.userName);
-    fd.append('email', this.state.email);
-    fd.append('phone', this.state.mobile);
-    fd.append('password', this.state.password);
-    fd.append('role', 'V');
-    console.log('fd', fd);
+    fd.append('email', 'abcd@gmail.com');
+    fd.append('password', '1234');
+
+    /* console.log('------LOGIN API POST-------', setEmail);
+    console.log('------LOGIN API POST-------', this.state.setPassword);
+    console.log('------LOGIN API POST-------', fd);
+    fd.append('email', 'this.state.setEmail');
+    fd.append('password', 'this.state.setPassword'); */
+
+    let data = {
+      email: 'abc@gmail.com',
+      password: '1234',
+    };
     const res = await axios
-      .post('https://ixiono.com/yolooe/api/SignUp', fd)
+      .post('https://ixiono.com/yolooe/api/Login', fd)
       .then((response) => {
-        console.log('data', response.data);
-        console.log('message', response.data.message);
-        let msg = response.data.message;
-        Toast.show(msg);
-        this.props.navigation.navigate('Login');
+        console.log('Response_Data', response.data);
+        console.log('Response_Data', response.data.data);
+        console.log('Response_Data_email', response.data.data[0].email);
+        console.log(
+          'Response_Data_FirstName',
+          response.data.data[0].first_name,
+        );
+        console.log('Response_Data_id', response.data.data[0].id);
+        console.log('Response_Data_Status', response.data.status);
+        if (response.data.status === 'true') {
+          console.log('navigate to home screen');
+          console.log('navigate to home screen', response.data.data[0].email);
+          console.log(
+            'navigate to home screen',
+            response.data.data[0].first_name,
+          );
+          console.log('navigate to home screen', response.data.data[0].id);
+          dispatch(
+            toogleUser(
+              response.data.data[0].email,
+              response.data.data[0].first_name,
+              response.data.data[0].id,
+            ),
+          );
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -69,6 +99,7 @@ export default class SignUp extends React.Component {
         <View style={styles.container}>
           <View style={styles.logoContainer}>
             <Text style={styles.logoText}>Yolooe</Text>
+            {/* Image */}
           </View>
           <View style={styles.loginContainer}>
             <View style={styles.contentContainer}>
@@ -81,7 +112,8 @@ export default class SignUp extends React.Component {
                     style={styles.inputs}
                     placeholder="User Name"
                     underlineColorAndroid="transparent"
-                    onChangeText={(value) => this.setState({userName: value})}
+                    /* onChangeText={(value) => this.setState({setEmail: value})} */
+                    //onChangeText={setEmail}
                   />
                   <View style={styles.iconInside}>
                     <Icon
@@ -95,41 +127,10 @@ export default class SignUp extends React.Component {
                 <View style={styles.inputContainer}>
                   <TextInput
                     style={styles.inputs}
-                    placeholder="Email"
-                    underlineColorAndroid="transparent"
-                    onChangeText={(value) => this.setState({email: value})}
-                  />
-                  <View style={styles.iconInside}>
-                    <Icon
-                      name={'lock'}
-                      color="#fff"
-                      size={20}
-                      style={{margin: 5}}
-                    />
-                  </View>
-                </View>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    style={styles.inputs}
-                    placeholder="Mobile"
-                    underlineColorAndroid="transparent"
-                    onChangeText={(value) => this.setState({mobile: value})}
-                  />
-                  <View style={styles.iconInside}>
-                    <Icon
-                      name={'lock'}
-                      color="#fff"
-                      size={20}
-                      style={{margin: 5}}
-                    />
-                  </View>
-                </View>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    style={styles.inputs}
                     placeholder="Password"
                     underlineColorAndroid="transparent"
-                    onChangeText={(value) => this.setState({password: value})}
+                    /*  onChangeText={(value) => this.setState({setPassword: value})} */
+                    //onChangeText={setPassword}
                   />
                   <View style={styles.iconInside}>
                     <Icon
@@ -147,15 +148,28 @@ export default class SignUp extends React.Component {
                     style={{
                       backgroundColor: '#2C3790',
                       height: 40,
-                      borderRadius: 10,
+                      borderRadius: 5,
                       justifyContent: 'center',
                       alignItems: 'center',
                     }}
-                    onPress={this.onSignUp}>
-                    {/* onPress={signUp}> */}
-                    <Text style={styles.buttonText}>Sign Up</Text>
+                    onPress={() => this.login()}>
+                    <Text style={styles.buttonText}>Sign In</Text>
                   </TouchableOpacity>
                 </View>
+                {/* <TouchableOpacity onPress={this.toSignUp}></TouchableOpacity> */}
+                <Text style={styles.title}>
+                  <Text numberOfLines={1}>
+                    Don't have an account ?
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate('SignUp')}>
+                      <Text
+                        styles={{color: '#2C3790', marginTop: 35}}
+                        numberOfLines={1}>
+                        Click here
+                      </Text>
+                    </TouchableOpacity>
+                  </Text>
+                </Text>
               </View>
             </View>
           </View>
@@ -171,7 +185,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#134C94',
   },
   logoContainer: {
-    flex: 0.25,
+    flex: 1,
     margin: 20,
     backgroundColor: '#134C94',
     margin: 10,
@@ -185,7 +199,6 @@ const styles = StyleSheet.create({
   loginContainer: {
     flex: 1,
     backgroundColor: 'white',
-    marginTop: 50,
   },
 
   contentContainer: {
