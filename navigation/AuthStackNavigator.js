@@ -12,6 +12,8 @@ import {
 import Login from '../screens/Authentication/LoginScreen';
 import SignUp from '../screens/Authentication/SignUp';
 //import Login from '../screens/Authentication/Login';
+import Friends from '../screens/Friends';
+import CreateFriends from '../screens/CreateFriends';
 
 import ForgotPassword from '../screens/Authentication/ForgotPassword';
 
@@ -24,6 +26,8 @@ const AuthStackNavigator = () => {
       <AuthStack.Navigator mode={'model'} screenOptions={{headerShown: false}}>
         <AuthStack.Screen name={'Login'} component={Login} />
         <AuthStack.Screen name={'SignUp'} component={SignUp} />
+        {/* <AuthStack.Screen name="Friends" component={Friends} />
+        <AuthStack.Screen name="CreateFriends" component={CreateFriends} /> */}
         {/* <AuthStack.Screen name={'Login'} component={Login} /> */}
         {/* <AuthStack.Screen name={'Forgot Password'} component={ForgotPassword} /> */}
       </AuthStack.Navigator>

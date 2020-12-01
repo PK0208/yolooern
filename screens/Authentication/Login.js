@@ -227,6 +227,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#134C94',
   },
+  logo: {
+    width: 30,
+    height: 30,
+  },
   logoContainer: {
     flex: 1,
     margin: 20,

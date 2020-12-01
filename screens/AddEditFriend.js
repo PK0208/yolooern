@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   ImageBackground,
   TextInput,
+  Button,
+  TouchableHighlight,
 } from 'react-native';
 import Appbar from '../Components/Appbar';
 import ImageSlider from '../Components/ImageSlider';
@@ -22,8 +24,9 @@ const {height, width} = Dimensions.get('window');
 import DatePicker from 'react-native-datepicker';
 import ImagePicker from 'react-native-image-picker';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+import {Modal} from 'react-native';
 
-export default class CreateFriends extends React.Component {
+export default class AddEditFriend extends React.Component {
   state = {
     color: '#FFFFFF',
     clickFriends: Boolean,
@@ -34,6 +37,7 @@ export default class CreateFriends extends React.Component {
     clickVault: Boolean,
     colorActive: '#2C3790',
     colorInactive: '#FFFFFF',
+    id: '',
     createdBy: '',
     groupId: '',
     relation: '',
@@ -48,17 +52,105 @@ export default class CreateFriends extends React.Component {
     date: '09-10-2020',
     resourcePath: {},
     showDatePicker: false,
+    showModal: false,
+    selectGroup: '',
+    relation: '',
   };
 
   componentDidMount() {
-    console.log('--------- CreateFriends -------------');
+    console.log('--------- AddEditFriend -------------');
+    console.log('Params', this.props.route.params.id);
     /*  console.log(
       '- params from previous screen-------------',
       this.props.route.params.createdBy,
       this.props.route.params.groupId,
       this.props.route.params.relation,
     ); */
+    this.getFriendDetailsById();
   }
+
+  getFriendDetailsById = async () => {
+    console.log('get friend details by id ', this.props.route.params.id);
+    let fd = new FormData();
+    let id = 2;
+    fd.append('id', this.props.route.params.id);
+    /* `https://www.sustowns.com/Sustownsservice/login/?username=${email}&password=${password}`, */
+    const res = await axios
+      .post('https://ixiono.com/yolooe/api/view_contact_by_Id?id=${2}', fd)
+      .then((response) => {
+        console.log('Response_Data', response.data);
+        //console.log('Response_Data-message', response.data.data);
+        /* console.log('Response_Data-address', response.data.data[0].address);
+        console.log(
+          'Response_Data-created_by',
+          response.data.data[0].created_by,
+        );
+        console.log('Response_Data-dob', response.data.data[0].dob);
+        console.log('Response_Data-facebook', response.data.data[0].facebook);
+        console.log('Response_Data-group_id', response.data.data[0].group_id);
+        console.log(
+          'Response_Data-group_name',
+          response.data.data[0].group_name,
+        );
+        console.log('Response_Data-Family', response.data.data[0].Family);
+        console.log('Response_Data-id', response.data.data[0].id);
+        console.log('Response_Data-image', response.data.data[0].image);
+        console.log('Response_Data-instra', response.data.data[0].instra);
+        console.log('Response_Data-mobile_no', response.data.data[0].mobile_no);
+        console.log('Response_Data-name', response.data.data[0].name);
+        console.log('Response_Data-relation', response.data.data[0].relation);
+        console.log('Response_Data-whtasapp', response.data.data[0].whtasapp);
+        console.log('Response_Data-message', response.data.message);
+        console.log('Response_Data-status', response.data.status); */
+        this.setState({relation: response.data.data[0].relation});
+        this.setState({name: response.data.data[0].name});
+        this.setState({mobile: response.data.data[0].mobile_no});
+        this.setState({image: response.data.data[0].image});
+        this.setState({whatsaap: response.data.data[0].whtasapp});
+        this.setState({facebook: response.data.data[0].facebook});
+        this.setState({insta: response.data.data[0].instra});
+        this.setState({address: response.data.data[0].address});
+        this.setState({dob: response.data.data[0].dob});
+
+        //console.log('Response_Data', response);
+        //this.setState({allfriends: response.data.data});
+        //console.log('Response_Data--State', this.state.allfriends);
+        let msg = response.data.message;
+        if (response.data.status == 'true') {
+          console.log('Friend Added success');
+          Toast.show(msg);
+        }
+      });
+  };
+  updateFriendDetails = async () => {
+    console.log('update api friends ');
+    let fd1 = new FormData();
+    fd1.append('name', this.state.name);
+    fd1.append('mobile_no', this.state.mobile);
+    fd1.append('whtasapp', this.state.mobile);
+    fd1.append('facebook', this.state.faceboook);
+    fd1.append('instra', this.state.insta);
+    fd1.append('address', this.state.address);
+    fd1.append('dob', this.state.dob);
+    fd1.append('image', this.state.image);
+
+    const res = await axios
+      .post('https://ixiono.com/yolooe/api/Updatecontact', fd1)
+      .then((response) => {
+        console.log('Response_Data', response.data);
+        console.log('Response_Data-message', response.data.message);
+        console.log('Response_Data-status', response.data.status);
+
+        //console.log('Response_Data', response);
+        //this.setState({allfriends: response.data.data});
+        //console.log('Response_Data--State', this.state.allfriends);
+        let msg = response.data.message;
+        if (response.data.status == 'true') {
+          console.log('Friend Added success');
+          Toast.show(msg);
+        }
+      });
+  };
 
   selectFile = () => {
     var options = {
@@ -129,55 +221,33 @@ export default class CreateFriends extends React.Component {
     this.props.navigation.goBack(null);
     return true;
   }
+  openModal = () => {
+    console.log('Open modal');
+    this.setState({showModal: true});
+  };
 
-  createFriends = async () => {
-    console.log('Create friends api call');
-    let fd = new FormData();
-    let fd1 = new FormData();
-    //fd.append('id', '2');
+  onSelectFriends = () => {
+    console.log('onSelectFriends');
+    this.setState({selectGroup: 'Friends'});
+    this.setState({showModal: false});
+  };
 
-    /* fd1.append('created_by', this.props.route.params.createdBy);
-    fd1.append('group_id', this.props.route.params.groupId);
-    fd1.append('relation', this.props.route.params.relation); */
-    fd1.append('name', this.state.name);
-    fd1.append('mobile_no', this.state.mobile);
-    fd1.append('whtasapp', this.state.mobile);
-    fd1.append('facebook', this.state.faceboook);
-    fd1.append('instra', this.state.insta);
-    fd1.append('address', this.state.address);
-    fd1.append('dob', this.state.dob);
-    fd1.append('image', this.state.image);
+  onSelectFamily = () => {
+    console.log('onSelectFamily');
+    this.setState({selectGroup: 'Family'});
+    this.setState({showModal: false});
+  };
 
-    console.log('FD1', fd1);
+  onSelectColleagues = () => {
+    console.log('onSelectColleagues');
+    this.setState({selectGroup: 'Colleagues'});
+    this.setState({showModal: false});
+  };
 
-    fd.append('created_by', 'sss');
-    fd.append('group_id', '3433');
-    fd.append('relation', 'friend');
-    fd.append('name', 'sssssAPI');
-    fd.append('mobile_no', '0000000000');
-    fd.append('whtasapp', '3435454534');
-    fd.append('facebook', '3435454534');
-    fd.append('instra', '3435454534');
-    fd.append('address', 'testApi');
-    fd.append('dob', 'testApi');
-    fd.append('image', 'yolooe_icon.jpeg');
-
-    /*  const res = await axios
-      .post('https://ixiono.com/yolooe/api/add_contact', fd1)
-      .then((response) => {
-        console.log('Response_Data', response.data);
-        console.log('Response_Data-message', response.data.message);
-        console.log('Response_Data-status', response.data.status);
-
-        //console.log('Response_Data', response);
-        //this.setState({allfriends: response.data.data});
-        //console.log('Response_Data--State', this.state.allfriends);
-        let msg = response.data.message;
-        if (response.data.status == 'true') {
-          console.log('Friend Added success');
-          Toast.show(msg);
-        }
-      }); */
+  onSelectWork = () => {
+    console.log('onSelectWork');
+    this.setState({selectGroup: 'Work'});
+    this.setState({showModal: false});
   };
 
   render() {
@@ -193,8 +263,8 @@ export default class CreateFriends extends React.Component {
             />
           </TouchableOpacity>
           <Body style={{flexDirection: 'row', margin: 5}}>
-            <Title style={{marginLeft: 80, fontWeight: '500', fontSize: 16}}>
-              Create Friend
+            <Title style={{marginLeft: 60, fontWeight: '500', fontSize: 16}}>
+              Create Friend and Family
             </Title>
           </Body>
         </Header>
@@ -206,37 +276,45 @@ export default class CreateFriends extends React.Component {
               placeholder="Select Group"
               placeholderTextColor="#9a73ef"
               autoCapitalize="none"
-              onChangeText={(value) => this.setState({name: value})}
+              onChangeText={() => this.openModal()}
             /> */}
-            {/* <TextInput
+            <TouchableOpacity
+              style={styles.input}
+              onPress={() => this.openModal()}>
+              <Text>Select group</Text>
+            </TouchableOpacity>
+            <TextInput
               style={styles.input}
               underlineColorAndroid="transparent"
               placeholder="Relation"
+              defaultValue={this.state.relation}
               placeholderTextColor="#9a73ef"
               autoCapitalize="none"
-              onChangeText={(value) => this.setState({name: value})}
-            /> */}
-            {/* <TextInput
-              style={styles.input}
-              underlineColorAndroid="transparent"
-              placeholder="Name"
-              placeholderTextColor="#9a73ef"
-              autoCapitalize="none"
-              onChangeText={(value) => this.setState({name: value})}
-            /> */}
+              onChangeText={(value) => this.setState({relation: value})}
+            />
             <TextInput
               style={styles.input}
               underlineColorAndroid="transparent"
               placeholder="Name"
+              defaultValue={this.state.name}
               placeholderTextColor="#9a73ef"
               autoCapitalize="none"
               onChangeText={(value) => this.setState({name: value})}
             />
+            {/* <TextInput
+              style={styles.input}
+              underlineColorAndroid="transparent"
+              placeholder="Name"
+              placeholderTextColor="#9a73ef"
+              autoCapitalize="none"
+              onChangeText={(value) => this.setState({name: value})}
+            /> */}
 
             <TextInput
               style={styles.input}
               underlineColorAndroid="transparent"
               placeholder="Mobile"
+              defaultValue={this.state.mobile}
               placeholderTextColor="#9a73ef"
               autoCapitalize="none"
               onChangeText={(value) => this.setState({mobile: value})}
@@ -271,6 +349,7 @@ export default class CreateFriends extends React.Component {
               underlineColorAndroid="transparent"
               placeholder="Whatsapp"
               placeholderTextColor="#9a73ef"
+              defaultValue={this.state.whatsaap}
               autoCapitalize="none"
               onChangeText={(value) => this.setState({whatsaap: value})}
             />
@@ -280,6 +359,7 @@ export default class CreateFriends extends React.Component {
               underlineColorAndroid="transparent"
               placeholder="Face Book ID"
               placeholderTextColor="#9a73ef"
+              defaultValue={this.state.facebook}
               autoCapitalize="none"
               onChangeText={(value) => this.setState({faceboook: value})}
             />
@@ -289,6 +369,7 @@ export default class CreateFriends extends React.Component {
               underlineColorAndroid="transparent"
               placeholder="Instagram"
               placeholderTextColor="#9a73ef"
+              defaultValue={this.state.insta}
               autoCapitalize="none"
               onChangeText={(value) => this.setState({insta: value})}
             />
@@ -297,6 +378,7 @@ export default class CreateFriends extends React.Component {
               underlineColorAndroid="transparent"
               placeholder="Address"
               placeholderTextColor="#9a73ef"
+              defaultValue={this.state.address}
               autoCapitalize="none"
               onChangeText={(value) => this.setState({address: value})}
             />
@@ -382,12 +464,65 @@ export default class CreateFriends extends React.Component {
               <Text style={styles.buttonText}>Create</Text>
             </TouchableOpacity> */}
             <TouchableOpacity
-              onPress={this.createFriends}
+              onPress={this.updateFriendDetails}
               style={styles.button}>
               <Text style={styles.buttonTextOne}>Create</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
+        {/* 
+        <Modal
+          animationType={'slide'}
+          transparent={false}
+          visible={this.state.showModal}
+          onRequestClose={() => {
+            console.log('Modal has been closed.');
+          }}>
+          
+          <View style={styles.modal}>
+            <Text style={styles.text}>Modal is open!</Text>
+            <Button
+              title="Click To Close Modal"
+              onPress={() => {
+                this.setState({showModal: false});
+              }}
+            />
+          </View>
+        </Modal> */}
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.showModal}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Select Group</Text>
+              <TouchableOpacity onPress={() => this.onSelectFamily()}>
+                <Text>Family</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => this.onSelectFriends()}>
+                <Text>Friends</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => this.onSelectColleagues()}>
+                <Text>Colleagues</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => this.onSelectWork()}>
+                <Text>Work</Text>
+              </TouchableOpacity>
+
+              {/* <TouchableHighlight
+                style={{...styles.openButton, backgroundColor: '#fff'}}
+                onPress={() => {
+                  this.setState({showModal: false});
+                }}>
+                <Text style={styles.textStyle}>Hide Modal</Text>
+              </TouchableHighlight> */}
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -397,6 +532,37 @@ const styles = StyleSheet.create({
   tinyLogo: {
     width: 50,
     height: 50,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  openButton: {
+    backgroundColor: '#F194FF',
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
   },
   cardContainer: {
     width: 100,

@@ -9,12 +9,12 @@ import {
 //import Icon from 'react-native-ionicons';
 import Icon from 'react-native-vector-icons/Entypo';
 
-export default function Appbar(props) {
-  const onPress = () => props.navigation.openDrawer();
+export default function Appbar({navigation}) {
+  const onPress = () => navigation.openDrawer();
 
   return (
     <View style={styles.appBarContainer}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
         <Icon name="menu" color="white" size={25} />
       </TouchableOpacity>
       <Text style={styles.titleText}>Home</Text>

@@ -1,101 +1,36 @@
 import React from 'react';
 import {
   View,
-  FlatList,
-  Image,
-  ActivityIndicator,
-  ScrollView,
+  Text,
+  TouchableOpacity,
   Dimensions,
+  StyleSheet,
 } from 'react-native';
-import axios from 'axios';
-import {Card, CardItem, Body, Text} from 'native-base';
+//import Icon from 'react-native-ionicons';
+import Icon from 'react-native-vector-icons/Entypo';
 
-const {height, width} = Dimensions.get('window');
-export default class ProductsComponent extends React.Component {
-  state = {
-    products: [],
-    city: [],
-  };
-  componentDidMount() {
-    axios
-      .get('https://www.sustowns.com/Sustownsservice/homegeneral')
-      .then((response) => {
-        let tempProduct = [];
-        let city = [];
-        response.data['getallproduct'].map((item) => {
-          city.push(item.city_name);
-          tempProduct.push({
-            image: item.imagepath,
-            city: item.city_name,
-            country: item.country,
-            title: item.pr_title,
-            price: item.pr_price,
-          });
-          this.setState({city: item.city_name});
-        });
-        this.setState({products: response.data['getallproduct']});
-        this.setState({city: city});
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+export default function Friends(props) {
+  //const onPress = () => props.navigation.openDrawer();
 
-  render() {
-    console.log(this.state.products);
-    return (
-      <ScrollView>
-        <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-          <Card
-            style={{
-              width: width * 0.480676328502,
-              height: width * 0.480676328502,
-              borderTopLeftRadius: 40,
-              borderTopRightRadius: 40,
-              borderBottomLeftRadius: 40,
-            }}>
-            <CardItem>
-              <Text>Hai</Text>
-            </CardItem>
-          </Card>
-          <Card
-            style={{
-              width: width * 0.480676328502,
-              height: width * 0.480676328502,
-              borderTopLeftRadius: 40,
-              borderTopRightRadius: 40,
-              borderBottomLeftRadius: 40,
-            }}>
-            <CardItem>
-              <Text>Hai</Text>
-            </CardItem>
-          </Card>
-          <Card
-            style={{
-              width: width * 0.480676328502,
-              height: width * 0.480676328502,
-              borderTopLeftRadius: 40,
-              borderTopRightRadius: 40,
-              borderBottomLeftRadius: 40,
-            }}>
-            <CardItem>
-              <Text>Hai</Text>
-            </CardItem>
-          </Card>
-          <Card
-            style={{
-              width: width * 0.480676328502,
-              height: width * 0.480676328502,
-              borderTopLeftRadius: 40,
-              borderTopRightRadius: 40,
-              borderBottomLeftRadius: 40,
-            }}>
-            <CardItem>
-              <Text>Hai</Text>
-            </CardItem>
-          </Card>
-        </View>
-      </ScrollView>
-    );
-  }
+  return (
+    <View>
+      <Text>Hi friends Component</Text>
+    </View>
+  );
 }
+const {height, width} = Dimensions.get('window');
+const styles = StyleSheet.create({
+  appBarContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 20 /*,borderBottomLeftRadius:30*/,
+    alignItems: 'center',
+    backgroundColor: '#2C3790',
+    height: height * 0.082065217391,
+  },
+  titleText: {
+    color: 'white',
+    fontSize: 25,
+    margin: 15,
+    marginLeft: 100,
+  },
+});

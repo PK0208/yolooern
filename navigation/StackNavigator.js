@@ -39,7 +39,7 @@ const ContactStackNavigator = () => {
   );
 };
 
-const DrawerNavigator = () => {
+/* const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       drawerStyle={{
@@ -61,6 +61,6 @@ const DrawerNavigator = () => {
       <Drawer.Screen name="logout" component={ContactStackNavigator} />
     </Drawer.Navigator>
   );
-};
+}; */
 
-export {MainStackNavigator, ContactStackNavigator, DrawerNavigator};
+export {MainStackNavigator, ContactStackNavigator};

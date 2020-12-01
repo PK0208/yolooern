@@ -10,20 +10,10 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch} from 'react-redux';
-//import { COLORS } from "util/Colors";
-//import COLORS from '../../utils/Colors';
-//import Fonts from '../../utils/Fonts';
-//import { FONTS } from "util/Fonts";
 import {Form, Item, Label, Button, Text} from 'native-base';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-//import { Network } from "network";
-//import { inject } from "mobx-react";
-//import { STORES } from "store/Type";
-//import { _storeData, _retrieveData } from "storage";
-//import { ASYNC } from "storage/Type";
 import Icon from 'react-native-vector-icons/Entypo';
 import axios from 'axios';
-//import { color } from 'react-native-reanimated';
 import {toogleUser} from '../../store/actions/loginActions';
 
 export default function LoginScreen({navigation}) {
@@ -113,14 +103,20 @@ export default function LoginScreen({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
-        <Text style={styles.logoText}>Yolooe</Text>
+        {/* <Text style={styles.logoText}>Yolooe</Text> */}
         {/* Image */}
+        <Image
+          source={require('../../assests/yoloee.png')}
+          style={styles.logo}
+        />
       </View>
       <View style={styles.contentContainer}>
-        <Form>
+        <View style={{justifyContent: 'center', marginBottom: 10}}>
           <Text style={styles.title}>
             Enter your login info to sign in to your account
           </Text>
+        </View>
+        <Form style={{marginTop: 20}}>
           <View style={styles.inputContainer}>
             <TextInput
               style={styles.inputs}
@@ -147,7 +143,8 @@ export default function LoginScreen({navigation}) {
             </View>
           </View>
         </Form>
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <View
+          style={{justifyContent: 'center', alignItems: 'center', margin: 15}}>
           <Button
             primary
             textStyle={{color: '#fff'}}
@@ -168,7 +165,7 @@ export default function LoginScreen({navigation}) {
             <Text> click here</Text>
           </TouchableOpacity>
         </View>
-        <Text>Try in other ways</Text>
+        {/* <Text>Try in other ways</Text> */}
         <View style={{flexDirection: 'row'}}>
           <Icon
             name={'facebook-with-circle'}
@@ -194,6 +191,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#134C94',
   },
+  logo: {
+    width: '85%',
+    height: '40%',
+  },
   logoContainer: {
     flex: 1,
     margin: 20,
@@ -211,7 +212,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   contentContainer: {
-    flex: 2,
+    flex: 3,
     backgroundColor: '#fff',
     justifyContent: 'center',
     //borderRadius: 35,
@@ -220,12 +221,12 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 35,
   },
   title: {
-    fontFamily: 'Roboto',
-    fontSize: 16,
-    lineHeight: 20,
+    fontFamily: 'Roboto-BoldI',
+    fontSize: 20,
     marginLeft: 45,
-    marginBottom: 20,
+    //marginBottom: 20,
     color: '#2C3790',
+    fontWeight: '500',
   },
   label: {
     //fontFamily: FONTS.contentRegular,

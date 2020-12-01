@@ -15,8 +15,7 @@ import axios from 'axios';
 import {Card, CardItem, Body, Text, Header, Title, Fab, Row} from 'native-base';
 import home_img from '../assests/home_img.png';
 import Icon from 'react-native-vector-icons/AntDesign';
-//import FriendsList from '../Components/FriendsList';
-import vector from '../assests/vector.png';
+import FriendsList from '../Components/FriendsList';
 
 const {height, width} = Dimensions.get('window');
 
@@ -40,7 +39,7 @@ export default class Friends extends React.Component {
   }
 
   onPressFAB = (createdBy, groupId, relation) => {
-    /* console.log(
+    console.log(
       '--------- On Press FAB -------------',
       createdBy,
       groupId,
@@ -50,14 +49,7 @@ export default class Friends extends React.Component {
       createdBy,
       groupId,
       relation,
-    }); */
-
-    this.props.navigation.navigate('CreateFriends');
-  };
-
-  onPressFriend = (id) => {
-    console.log('----OnPressfriend------', id);
-    this.props.navigation.navigate('AddEditFriend', {id: id});
+    });
   };
 
   handleBackButtonClick() {
@@ -107,11 +99,7 @@ export default class Friends extends React.Component {
         {/* <ScrollView>
           <FriendsList />
         </ScrollView> */}
-        <ScrollView style={[styles.scrollview]}>
-          <ImageBackground
-            style={[styles.fixed, styles.containter, {zIndex: -1}]}
-            source={require('../assests/vector.png')}
-          />
+        <ScrollView>
           <View
             style={{
               flexDirection: 'row',
@@ -124,9 +112,7 @@ export default class Friends extends React.Component {
                   justifyContent: 'space-evenly',
                   margin: 15,
                 }}>
-                <TouchableOpacity
-                  key={item.id}
-                  onPress={() => this.onPressFriend(item.id)}>
+                <TouchableOpacity key={item.id}>
                   <Card style={[styles.cardContainer]}>
                     <Image
                       style={styles.imageContainer}
@@ -139,11 +125,24 @@ export default class Friends extends React.Component {
                       }}
                       resizeMode="contain"
                     />
-                    <Text numberOfLines={2} style={{textAlign: 'center'}}>
-                      {item.name}
-                    </Text>
+                    <Text>{item.name}</Text>
                   </Card>
                 </TouchableOpacity>
+                <View>
+                  <Fab
+                    position="bottomRight"
+                    style={{position: 'absolute'}}
+                    onPress={() =>
+                      this.onPressFAB(
+                        item.created_by,
+                        item.group_id,
+                        item.relation,
+                      )
+                    }>
+                    <Icon name="plus" />
+                    <Icon name="plus" />
+                  </Fab>
+                </View>
               </View>
             ))}
             {/* <View>
@@ -155,23 +154,15 @@ export default class Friends extends React.Component {
               </Fab>
             </View> */}
           </View>
+          <View>
+            <Fab
+              position="bottomRight"
+              style={{position: 'absolute'}}
+              onPress={() => this.onPressFAB()}>
+              <Icon name="plus" />
+            </Fab>
+          </View>
         </ScrollView>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={() => this.onPressFAB()}
-          style={styles.touchableOpacityStyle}>
-          <Image
-            //We are making FAB using TouchableOpacity with an image
-            //We are using online image here
-            source={{
-              uri:
-                'https://raw.githubusercontent.com/AboutReact/sampleresource/master/plus_icon.png',
-            }}
-            //You can use you project image Example below
-            //source={require('./images/float-add-icon.png')}
-            style={styles.floatingButtonStyle}
-          />
-        </TouchableOpacity>
       </View>
     );
   }
@@ -192,35 +183,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: 60,
     height: 60,
-    borderRadius: 60 / 2,
-  },
-  touchableOpacityStyle: {
-    position: 'absolute',
-    width: 50,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    right: 30,
-    bottom: 30,
-  },
-  floatingButtonStyle: {
-    resizeMode: 'contain',
-    width: 50,
-    height: 50,
-    //backgroundColor:'black'
-  },
-  containter: {
-    width: Dimensions.get('window').width, //for full screen
-    height: Dimensions.get('window').height, //for full screen
-  },
-  fixed: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-  scrollview: {
-    backgroundColor: 'transparent',
+    borderRadius: 15,
   },
 });

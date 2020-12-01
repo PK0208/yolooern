@@ -66,14 +66,21 @@ export default class SignUp extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.logoContainer}>
-          <Text style={styles.logoText}>Yolooe</Text>
+          {/* <Text style={styles.logoText}>Yolooe</Text> */}
           {/* Image */}
+          <Image
+            source={require('../../assests/yoloee.png')}
+            style={styles.logo}
+          />
         </View>
         <View style={styles.contentContainer}>
-          <Form>
+          <View style={{justifyContent: 'center', marginBottom: 10}}>
             <Text style={styles.title}>
-              Enter your login info to sign in to your account
+              Enter your information below to create new account
             </Text>
+          </View>
+
+          <Form>
             <View style={styles.inputContainer}>
               <TextInput
                 style={styles.inputs}
@@ -155,12 +162,12 @@ export default class SignUp extends React.Component {
             </Button>
           </View>
           <View style={{flexDirection: 'row'}}>
-            <Text>Try in other ways</Text>
+            {/* <Text>Try in other ways</Text> */}
             {/* <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
               <Text> click here</Text>
             </TouchableOpacity> */}
           </View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', marginTop: 5}}>
             <Icon
               name={'facebook-with-circle'}
               color="#2C3790"
@@ -194,6 +201,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  logo: {
+    width: '85%',
+    height: '40%',
+  },
   logoText: {
     fontSize: 24,
     color: 'white',
@@ -205,7 +216,7 @@ const styles = StyleSheet.create({
   },
 
   contentContainer: {
-    flex: 2,
+    flex: 0.75,
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
@@ -214,11 +225,13 @@ const styles = StyleSheet.create({
   },
   title: {
     //fontFamily: FONTS.titleSemiBold,
-    fontSize: 16,
-    lineHeight: 20,
+    fontSize: 20,
+    //lineHeight: 20,
     marginLeft: 45,
     marginBottom: 20,
     color: '#2C3790',
+    fontFamily: 'Roboto- Bold',
+    fontWeight: '500',
   },
   label: {
     //fontFamily: FONTS.contentRegular,
